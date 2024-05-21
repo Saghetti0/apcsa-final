@@ -65,6 +65,13 @@ public class Main {
 		
 		System.out.println("Over " + numRounds + " rounds, " + stratName + " turned $1000 into $" + g.getMoney());
 		System.out.println("Check game_log.txt for more details!");
+		
+		try {
+			fwriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static String[] strategyNames() {
