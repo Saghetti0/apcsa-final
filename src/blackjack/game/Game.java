@@ -570,7 +570,7 @@ public class Game {
 	}
 	
 	protected void implPrint(String message) {
-		
+		logger.logString("DEBUG: " + message);
 	}
 	
 	public int getMoney() {
