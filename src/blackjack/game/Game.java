@@ -12,7 +12,7 @@ public class Game {
 	private CardGroup discard = new CardGroup();
 	private CardGroup dealerHand = new CardGroup();
 	private List<CardGroup> hands = new ArrayList<CardGroup>();
-	// should've really used an object here, this is *really* dumb
+	// should've really used an object here, this is really dumb
 	private boolean[] handDoubleStatus = new boolean[8];
 	private boolean isShuffleQueued = false;
 	private int playerInitialBet = 0;
