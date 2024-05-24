@@ -28,7 +28,14 @@ public class Main {
 		
 		try {
 			p = (Player) Class.forName("strategy." + stratName).newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+		} catch (IllegalAccessException e) {
+			System.out.println("");
+			System.out.println("Error: the class for the strategy is not defined as public!");
+			System.out.println("Make sure that the definition looks like this:");
+			System.out.println("");
+			System.out.println("    public class " + stratName + " extends Player {");
+			System.exit(1);
+		} catch (InstantiationException | ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}

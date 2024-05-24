@@ -151,7 +151,7 @@ public abstract class Player {
 	public final int getNumHands() {
 		return parentGame.implGetNumHands();
 	}
-	
+
 	/**
 	 * Get the amount of money that the player currently has.
 	 */
