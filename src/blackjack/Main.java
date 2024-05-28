@@ -65,12 +65,19 @@ public class Main {
 				}
 			}
 		});
+
+		int i=0;
 		
-		for (int i=0; i<numRounds; i++) {
+		for (i=0; i<numRounds; i++) {
+			if (g.getMoney() < 2) {
+				System.out.println("Ending game on round " + (i+1) + " because the player ran out of money.");
+				break;
+			}
+			
 			g.doRound();
 		}
 		
-		System.out.println("Over " + numRounds + " rounds, " + stratName + " turned $1000 into $" + g.getMoney());
+		System.out.println("Over " + i + " rounds, " + stratName + " turned $1000 into $" + g.getMoney());
 		System.out.println("Check game_log.txt for more details!");
 		
 		try {
