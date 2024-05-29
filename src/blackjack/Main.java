@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import blackjack.game.Game;
@@ -11,7 +12,7 @@ import blackjack.game.GameLogger;
 import blackjack.game.Player;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// scan for strategy files
 		Scanner scan = new Scanner(System.in);
 		String[] strategies = strategyNames();
@@ -74,7 +75,15 @@ public class Main {
 				break;
 			}
 			
-			g.doRound();
+			try {				
+				g.doRound();
+			} catch (Exception e) {
+				System.out.println("An exception occurred on round " + numRounds);
+				e.printStackTrace();
+				fwriter.append("\n\nError: strategy crashed on round=" + numRounds + "\n");
+				e.printStackTrace(new PrintWriter(fwriter));
+				break;
+			}
 		}
 		
 		System.out.println("Over " + i + " rounds, " + stratName + " turned $1000 into $" + g.getMoney());
