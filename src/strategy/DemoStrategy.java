@@ -67,7 +67,7 @@ public class DemoStrategy extends Player {
 			return;
 		} else {
 			// and an additional 20% chance that we double down
-			if (Math.random() < 0.1) {
+			if (Math.random() < 0.1 && canDoubleDown()) {
 				doubleDown();
 			} else {				
 				stand();

@@ -23,6 +23,7 @@ public class Game {
 	private boolean hasRoundEnded = false;
 	private boolean didSplitAces = false;
 	private GameLogger logger;
+	private boolean clampBets = false;
 	
 	public Game(Player player, GameLogger logger) {
 		this.player = player;
@@ -153,10 +154,17 @@ public class Game {
 			throw new PlayerException("initial bet must be at least $2, got $" + playerInitialBet);
 		}
 		
-		if (playerInitialBet > playerBalance) {
-			throw new PlayerException("player tried to bet $" + playerInitialBet
-					+ " but only has $" + playerBalance);
+		if (this.clampBets) {
+			if (playerInitialBet > playerBalance) {
+				playerInitialBet = (playerBalance / 2) * 2;
+			}
+		} else {			
+			if (playerInitialBet > playerBalance) {
+				throw new PlayerException("player tried to bet $" + playerInitialBet
+						+ " but only has $" + playerBalance);
+			}
 		}
+		
 		
 		logger.logString(">> The player bet $" + playerInitialBet);
 		
@@ -575,5 +583,9 @@ public class Game {
 	
 	public int getMoney() {
 		return playerBalance;
+	}
+	
+	public void setClampBets(boolean clampBets) {
+		this.clampBets = clampBets;
 	}
 }
