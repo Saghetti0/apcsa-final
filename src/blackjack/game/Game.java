@@ -254,9 +254,25 @@ public class Game {
 			logger.logString("## Player's hand: " + Arrays.toString(implGetCurrentHand()) + " (" + implGetCurrentHandValue() + ")");
 			logger.logString("## Dealer's hand: " + implGetDealerCard() + " (" + implGetDealerHandValue() + ")");
 			
+			// logging
+			
+			if (implGetCurrentHandValue() > 21) {
+				logger.logString(">> This hand busted!");
+			}
+			
+			if (implGetCurrentHandValue() == 21) {
+				logger.logString(">> This hand is exactly 21!");
+			}
+			
+			// reaching exactly 21 or over will advance
+			if (implGetCurrentHandValue() >= 21) {
+				currentHandIndex++;
+				continue;
+			}
+			
 			PlayerAction action = invokePlayHand();
 			
-			// various log bs
+			// yet more logging
 			
 			if (action == PlayerAction.STAND) {
 				logger.logString(">> The player stood");
@@ -276,16 +292,6 @@ public class Game {
 				logger.logString(">> The player doubled down, and drew a " + hand[hand.length - 1]);
 			}
 			
-			if (implGetCurrentHandValue() > 21) {
-				logger.logString(">> This hand busted!");
-			}
-			
-			if (implGetCurrentHandValue() == 21) {
-				logger.logString(">> This hand is exactly 21!");
-			}
-			
-			// real code now
-			
 			// standing, or splitting aces will advance to the next hand
 			if (action == PlayerAction.STAND || 
 					(action == PlayerAction.SPLIT && didSplitAces)) {
@@ -301,12 +307,6 @@ public class Game {
 				// mark this hand as doubled
 				handDoubleStatus[currentHandIndex] = true;
 				
-				currentHandIndex++;
-				continue;
-			}
-			
-			// reaching exactly 21 or over will advance
-			if (implGetCurrentHandValue() >= 21) {
 				currentHandIndex++;
 				continue;
 			}
